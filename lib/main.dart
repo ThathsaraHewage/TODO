@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:todo/app/data/services/storage/services.dart';
+import 'package:todo/app/modules/home/binding.dart';
 import 'package:todo/app/modules/home/view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,11 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'TODO app using getX',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      home: const HomePage(),
+      initialBinding: HomeBinding(),
+      builder: EasyLoading.init(),
+
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
