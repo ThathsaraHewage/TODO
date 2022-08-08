@@ -110,7 +110,7 @@ class AddCard extends StatelessWidget {
           child: Center(
             child: Icon(
                 Icons.add,
-                size: 1.0.wp,
+                size: 10.0.wp,
                 color: Colors.grey,
             ),
           ),
