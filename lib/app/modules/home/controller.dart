@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:todo/app/data/models/task.dart';
 import 'package:todo/app/data/services/storage/repository.dart';
@@ -89,5 +90,46 @@ class HomeController extends GetxController{
         doingToDos.add(todo);
       }
     }
+  }
+
+  bool addToDo(String title){
+    var todo = {'title': title, 'done': false};
+    var doneToDo = {'title': title, 'done': true};
+
+    if(doingToDos.any((element) => mapEquals<String,dynamic>(todo, element))){
+      return false;
+    }
+
+    if(doneToDos.any((element) => mapEquals<String, dynamic>(todo,element))){
+      return true;
+    }
+
+    doingToDos.add(todo);
+    return true;
+  }
+
+  void updateToDos(){
+    var newToDos =  <Map<String, dynamic>>[];
+    newToDos.addAll([
+      ...doingToDos,
+    ...doneToDos
+    ]);
+
+    var newTask = task.value!.copyWith(todos: newToDos);
+    int oldIdx = tasks.indexOf(task.value);
+    tasks[oldIdx] = newTask;
+    tasks.refresh();
+  }
+
+  void doneToDo(String title){
+    var doingToDo = {'title': title, 'done': false};
+    int index = doingToDos.indexWhere((element) =>
+        mapEquals<String,dynamic>(doingToDo,element));
+
+    doingToDos.removeAt(index);
+    var doneToDo = {'title': title, 'done': true};
+    doneToDos.add(doneToDo);
+    doingToDos.refresh();
+    doneToDos.refresh();
   }
 }
