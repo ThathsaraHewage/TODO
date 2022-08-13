@@ -8,6 +8,7 @@ import 'package:todo/app/data/models/task.dart';
 import 'package:todo/app/modules/home/controller.dart';
 import 'package:todo/app/core/utils/extensions.dart';
 import 'package:todo/app/modules/home/widgets/add_card.dart';
+import 'package:todo/app/modules/home/widgets/add_dialog.dart';
 import 'package:todo/app/modules/home/widgets/task_card.dart';
 
 class HomePage extends GetView<HomeController>{
@@ -21,9 +22,9 @@ class HomePage extends GetView<HomeController>{
             children: [
               Padding(
                 padding: EdgeInsets.all(4.0.wp),
-                child: Text('MY LIST',
+                child: Text('Handy Assistant',
                   style: TextStyle(
-                    fontSize: 24.0.sp,
+                    fontSize: 18.0.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -56,7 +57,17 @@ class HomePage extends GetView<HomeController>{
           return Obx(
                 () => FloatingActionButton(
               backgroundColor: controller.deleting.value ? Colors.red : blue ,
-              onPressed: (){},
+              onPressed: (){
+                if(controller.tasks.isNotEmpty){
+                  Get.to(() => AddDialog(),
+                      transition: Transition.downToUp
+                  );
+                }
+                else{
+                  EasyLoading.showInfo('Please create a task type first ');
+                }
+
+              },
               child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
             ),
           );
