@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'TODO app using getX',
+      title: 'TODO app',
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
       initialBinding: HomeBinding(),

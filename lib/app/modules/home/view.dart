@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:todo/app/core/values/colors.dart';
 import 'package:todo/app/data/models/task.dart';
 import 'package:todo/app/modules/home/controller.dart';
 import 'package:todo/app/core/utils/extensions.dart';
@@ -32,13 +34,37 @@ class HomePage extends GetView<HomeController>{
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     children: [
-                      ...controller.tasks.map((element) => TaskCard(task: element)).toList(),
+                      ...controller.tasks.map((element) =>
+                          LongPressDraggable(
+                            data: element,
+                            onDragStarted: () => controller.changeDeleting(true),
+                            onDraggableCanceled: (_,__) => controller.changeDeleting(false),
+                            onDragEnd: (_) => controller.changeDeleting(false),
+                              feedback: Opacity(opacity: 0.8,
+                              child: TaskCard(task: element,),
+                              ),
+                              child: TaskCard(task: element)))
+                          .toList(),
                       AddCard(),
                     ],
                 ),
               )
             ],
           ),
+      ),
+      floatingActionButton: DragTarget(builder: (_,__,___){ //making annonymouse
+          return Obx(
+                () => FloatingActionButton(
+              backgroundColor: controller.deleting.value ? Colors.red : blue ,
+              onPressed: (){},
+              child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
+            ),
+          );
+        },
+        onAccept: (Task task){
+          controller.deleteTask(task);
+          EasyLoading.showSuccess('Delete Success');
+        },
       ),
     );
   }

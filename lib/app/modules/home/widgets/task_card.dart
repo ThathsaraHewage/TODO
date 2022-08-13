@@ -41,10 +41,15 @@ class TaskCard extends StatelessWidget {
               currentStep: 80,
               size: 5,
               padding: 0,
-              selectedGradientColor: const LinearGradient(
+              selectedGradientColor: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.white, Colors.blue],
+                colors: [color.withOpacity(0.5),color],
+              ),
+              unselectedGradientColor: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.white, Colors.white],
               ),
             ),
           Padding(
@@ -52,7 +57,7 @@ class TaskCard extends StatelessWidget {
             child: Icon(
                 IconData(
                     task.icon,
-                    fontFamily: 'MaterialICons'
+                    fontFamily: 'MaterialIcons'
                 ),
             color: color),
           ),
@@ -61,20 +66,21 @@ class TaskCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(task.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0.sp
-                ),
-                overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(
-                  height: 2.0.wp,
-                ),
-                Text('${task.todos?.length ?? 0} Task',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                    )
+                Text(
+                  task.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0.sp
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    height: 2.0.wp,
+                  ),
+                  Text('${task.todos?.length ?? 0} Task',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      )
                 ),
 
               ],
