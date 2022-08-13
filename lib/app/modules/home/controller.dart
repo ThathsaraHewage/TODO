@@ -132,4 +132,25 @@ class HomeController extends GetxController{
     doingToDos.refresh();
     doneToDos.refresh();
   }
+
+  void deleDoneToDo(dynamic doneToDo) {
+      int index =  doneToDos.indexWhere((element) =>
+      mapEquals<String,dynamic>(doneToDo,element));
+      doneToDos.removeAt(index);
+      doneToDos.refresh();
+  }
+
+  bool isToDosEmpty(Task task){
+    return task.todos == null || task.todos!.isEmpty;
+  }
+
+  int getDoneToDo(Task task){
+    var res = 0;
+    for(int i=0; i< task.todos!.length; i++){
+      if(task.todos![i]['done'] == true){
+        res +=1;
+      }
+    }
+    return res;
+  }
 }

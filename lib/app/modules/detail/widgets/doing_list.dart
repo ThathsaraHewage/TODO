@@ -16,7 +16,7 @@ class DoingList extends StatelessWidget {
                 children: [
                   Image.asset('assets/image/task.png',
                   fit: BoxFit.cover,
-                  width: 65.0.wp,),
+                  width: 45.0.wp,),
                   Text('Add Task',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -32,7 +32,7 @@ class DoingList extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 3.0.wp,
-                        horizontal: 9.0.wp
+                        horizontal: 9.0.wp,
                       ),
                       child: Row(
                         children: [
@@ -41,8 +41,8 @@ class DoingList extends StatelessWidget {
                               height: 20,
                               child: Checkbox(
                                 fillColor: MaterialStateProperty.resolveWith((states) => Colors.grey),
-                                value: element('done'),
-                                onChanged: (vale){
+                                value: element['done'],
+                                onChanged: (value){
                                   homeCtrl.doneToDo(element['title']);
                                 },
                               ),
@@ -55,12 +55,8 @@ class DoingList extends StatelessWidget {
                               element['title'],
                               overflow: TextOverflow.ellipsis,
                             ),
-                          )
-                ],
-                ),
-                    )
-                    )
-                    .toList(),
+                          )],),)
+                    ).toList(),
                   if(homeCtrl.doneToDos.isNotEmpty)
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.0.wp),
