@@ -1,3 +1,9 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
 import 'package:todo/app/data/models/task.dart';
 import 'package:todo/app/data/providers/task/provider.dart';
 

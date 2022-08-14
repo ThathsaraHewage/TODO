@@ -1,3 +1,9 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
 const personIcon = 0xe491;
 const workIcon = 0xe11c;
 const movieIcon = 0xe40f;

@@ -1,3 +1,9 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
 import 'package:flutter/material.dart';
 
 const purple = Color(0xFF756BFC);

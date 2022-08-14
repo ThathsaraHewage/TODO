@@ -1,3 +1,9 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';

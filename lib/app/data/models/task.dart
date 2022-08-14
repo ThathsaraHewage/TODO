@@ -1,3 +1,9 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable{

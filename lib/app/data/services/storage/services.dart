@@ -1,3 +1,10 @@
+/*
+* app name : Handy Assistant
+* author : Thathsara Hewage
+* finished date : 8-14-2022
+* */
+
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todo/app/core/utils/keys.dart';
