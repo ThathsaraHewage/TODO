@@ -10,6 +10,7 @@ import 'package:todo/app/core/utils/extensions.dart';
 import 'package:todo/app/modules/home/widgets/add_card.dart';
 import 'package:todo/app/modules/home/widgets/add_dialog.dart';
 import 'package:todo/app/modules/home/widgets/task_card.dart';
+import 'package:todo/app/modules/report/report_view.dart';
 
 class HomePage extends GetView<HomeController>{
   const HomePage({Key? key}): super(key: key);
@@ -17,41 +18,49 @@ class HomePage extends GetView<HomeController>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: ListView(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(4.0.wp),
-                child: Text('Handy Assistant',
-                  style: TextStyle(
-                    fontSize: 18.0.sp,
-                    fontWeight: FontWeight.bold,
+      body: Obx( () =>
+        IndexedStack(
+          index: controller.tabIndex.value,
+          children: [
+            SafeArea(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(4.0.wp),
+                    child: Text('Handy Assistant',
+                      style: TextStyle(
+                        fontSize: 18.0.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
+                  Obx(
+                        () =>  GridView.count(
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        children: [
+                          ...controller.tasks.map((element) =>
+                              LongPressDraggable(
+                                data: element,
+                                onDragStarted: () => controller.changeDeleting(true),
+                                onDraggableCanceled: (_,__) => controller.changeDeleting(false),
+                                onDragEnd: (_) => controller.changeDeleting(false),
+                                  feedback: Opacity(opacity: 0.8,
+                                  child: TaskCard(task: element,),
+                                  ),
+                                  child: TaskCard(task: element)))
+                              .toList(),
+                          AddCard(),
+                        ],
+                    ),
+                  )
+                ],
               ),
-              Obx(
-                    () =>  GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    children: [
-                      ...controller.tasks.map((element) =>
-                          LongPressDraggable(
-                            data: element,
-                            onDragStarted: () => controller.changeDeleting(true),
-                            onDraggableCanceled: (_,__) => controller.changeDeleting(false),
-                            onDragEnd: (_) => controller.changeDeleting(false),
-                              feedback: Opacity(opacity: 0.8,
-                              child: TaskCard(task: element,),
-                              ),
-                              child: TaskCard(task: element)))
-                          .toList(),
-                      AddCard(),
-                    ],
-                ),
-              )
-            ],
           ),
+            ReportPage(),
+          ],
+        ),
       ),
       floatingActionButton: DragTarget(builder: (_,__,___){ //making annonymouse
           return Obx(
@@ -77,6 +86,42 @@ class HomePage extends GetView<HomeController>{
           EasyLoading.showSuccess('Delete Success');
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: Obx(
+              ()=> BottomNavigationBar(
+            onTap: (int index) => controller.changeTabIndex(index),
+            currentIndex: controller.tabIndex.value,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: [
+              BottomNavigationBarItem(
+                  label : 'Home',
+                  icon: Padding(
+                    padding: EdgeInsets.only(right: 15.0.wp),
+                    child: const Icon(
+                      Icons.apps,
+                    ),
+                  )
+              ),
+              BottomNavigationBarItem(
+                  label : 'Report',
+                  icon: Padding(
+                    padding: EdgeInsets.only(left: 15..wp),
+                    child: const Icon(
+                      Icons.data_usage,
+                    ),
+                  )
+              )
+            ],
+
+          ),
+        ),
+      )
     );
   }
 }
